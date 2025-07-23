@@ -9,7 +9,6 @@ from PIL import Image
 
 app = FastAPI()
 
-# Load model once at startup
 MODEL_PATH = "model/model_mobilenetv2.h5"
 try:
     model = load_model(MODEL_PATH)
@@ -22,7 +21,7 @@ def preprocess_image(img_bytes):
     img = img.resize((224, 224))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = preprocess_input(img_array) # <--- PERUBAHAN
+    img_array = preprocess_input(img_array)
     return img_array
 
 @app.get("/")
@@ -39,7 +38,6 @@ async def predict(file: UploadFile = File(...)):
         contents = await file.read()
         img_array = preprocess_image(contents)
         preds = model.predict(img_array)
-        # Assuming binary classification: 0 = real, 1 = fake
         pred_class = int(np.round(preds[0][0]))
         label = "fake" if pred_class == 1 else "real"
         confidence = float(preds[0][0]) if pred_class == 1 else 1 - float(preds[0][0])
