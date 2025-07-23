@@ -26,7 +26,7 @@ def preprocess_image(img_bytes):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello World, this is my first time use github actions"}
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
