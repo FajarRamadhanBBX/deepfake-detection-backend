@@ -29,6 +29,9 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deepfake_detection_backend:latest
 
   deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
