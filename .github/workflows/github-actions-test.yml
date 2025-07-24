@@ -27,3 +27,27 @@ jobs:
           context: .
           push: true    
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deepfake_detection_backend:latest
+
+  deploy:
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script:
+            # Langkah 4: pull image terbaru dari Docker Hub
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/deepfake_detection_backend:latest
+
+            # Langkah 5: stop dan remove container lama
+            docker stop deepfake_detection_backend || true
+            docker rm deepfake_detection_backend || true
+
+            # Langkah 6: run container baru dengan image terbaru
+            docker run -d --name deepfake_detection_backend -p 8080:8000 ${{ secrets.DOCKERHUB_USERNAME }}/deepfake_detection_backend:latest
+            
+            # Langkah 7: hapus dangling images
+            docker image prune -f
+            
+            echo "Deployment completed successfully!"
