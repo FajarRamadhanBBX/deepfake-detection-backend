@@ -4,10 +4,12 @@ import numpy as np
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from prometheus_fastapi_instrumentator import Instrumentator
 import io
 from PIL import Image
 
 app = FastAPI()
+Instrumentator().instrument(app).expose(app)
 
 MODEL_PATH = "model/model_mobilenetv2.h5"
 try:
