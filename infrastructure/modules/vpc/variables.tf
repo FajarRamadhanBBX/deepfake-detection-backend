@@ -1,0 +1,15 @@
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
+variable "environment_name" {
+  description = "Name of the environment (e.g., dev, staging, prod)"
+  type        = string
+}
+
+variable "tags" {
+  description = "Tags to apply to all resources"
+  type        = map(string)
+  default     = {}
+}
