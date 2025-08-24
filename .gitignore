@@ -2,7 +2,7 @@ __pycache__
 venv
 .dockerignore
 dockerfile
-notes.txt
+notes.  
 infrastructure/environments/development/.terraform.lock.hcl
 infrastructure/environments/production
 .terraform/
