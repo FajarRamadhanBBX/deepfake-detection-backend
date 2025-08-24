@@ -18,6 +18,11 @@ variable "public_subnet_cidr" {
   type        = string
 }
 
+variable "public_subnet_cidr2" {
+  description = "CIDR block for the public subnet"
+  type        = string
+}
+
 variable "availability_zone" {
   description = "Availability zone for the public subnet"
   type        = string
@@ -31,5 +36,15 @@ variable "tags" {
 
 variable "web_server_ami_id" {
   description = "AMI ID for the web server EC2 instance"
+  type        = string
+}
+
+variable "my_ip" {
+  description = "Your IP address for secure access"
+  type        = string
+}
+
+variable "internet_ip" {
+  description = "The public IP address of the internet gateway"
   type        = string
 }
